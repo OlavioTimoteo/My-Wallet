@@ -1,4 +1,8 @@
 import React from 'react';
+import '../App.css';
+import wallet from '../images/wallet.svg';
+
+
 
 class Login extends React.Component {
   constructor() {
@@ -19,23 +23,36 @@ class Login extends React.Component {
     const { email, password } = this.state;
     console.log(this.state);
     return (
-      <form>
-        <input
-          data-testid="email-input"
-          type="text"
-          name="email"
-          value={ email }
-          onChange={ this.handleChange }
-        />
-        <input
-          data-testid="password-input"
-          type="text"
-          name="password"
-          value={ password }
-          onChange={ this.handleChange }
-        />
-        <button type="button">Entrar</button>
-      </form>
+      <div className='container'>
+        <div className="login-container">
+          <h2>My Wallet</h2>
+          <h3>Login</h3>
+          <form>
+            <div className="login-input-container">
+              <label> E-mail:
+                <input
+                  name="mail"
+                  type="text"
+                  value={ email }
+                  onChange={ this.handleChange }
+                />
+              </label>
+              <label> Senha
+                <input
+                  name="password"
+                  type="text"
+                  value={ password }
+                  onChange={ this.handleChange }
+                />
+              </label>
+            </div>
+            <button className='button' type="button">Entrar</button>
+          </form>
+        </div >
+        <div className='img'>
+          <img src={ wallet } alt="img"></img>
+        </div>
+      </div>
     );
   }
 }

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Navigate } from 'react-router-dom';
+import { Redirect } from 'react-router';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { saveEmailAction } from '../actions';
@@ -20,7 +20,7 @@ class Login extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleChange({ target }) {
+  handleChange({ target }) { // Função generica para pegar as alterações do input e salvar no estado do component.
     const { name, value } = target;
     this.setState({ [name]: value });
   }
@@ -37,7 +37,7 @@ class Login extends React.Component {
     const { email, password, redirect } = this.state;
     const REGEX_EMAIL = /^([\w\d._\-#])+@([\w\d._\-#]+[.][\w\d._\-#]+)+$/;
     const minPassLength = 6;
-    if (redirect) { return <Navigate to="/carteira" />; }
+    if (redirect) { return <Redirect to="/carteira" />; }
 
     return (
       <div className='container'>
@@ -49,7 +49,7 @@ class Login extends React.Component {
               <label> E-mail:
                 <input
                   name="email"
-                  type="text"
+                  type="email"
                   value={ email }
                   onChange={ this.handleChange }
                 />
@@ -57,7 +57,7 @@ class Login extends React.Component {
               <label> Senha
                 <input
                   name="password"
-                  type="text"
+                  type="password"
                   value={ password }
                   onChange={ this.handleChange }
                 />
@@ -78,13 +78,13 @@ class Login extends React.Component {
   }
 }
 
-// const mapDispatchToProps = (dispatch) => ({
-//   saveEmail: (email) => dispatch(saveEmailAction(email)),
-// });
+const mapDispatchToProps = (dispatch) => ({
+  saveEmail: (email) => dispatch(saveEmailAction(email)),
+});
 
 Login.propTypes = {
   saveEmail: PropTypes.func.isRequired,
   history: PropTypes.oneOfType([PropTypes.object, PropTypes.string]).isRequired,
 };
 
-export default Login;
+export default connect(null, mapDispatchToProps)(Login);
